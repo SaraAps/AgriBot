@@ -43,6 +43,7 @@ void setup() {
     soilServo.attach(11);
     shovelServo.attach(13);
     pinMode(PUMP_PIN, OUTPUT); // Set pin as OUTPUT
+    pinMode(PUMP_PIN, LOW);
 
 }
 void pravo(){
@@ -73,14 +74,14 @@ void stop() {
 }
 
 
-void navodni(){
-  digitalWrite(PUMP_PIN, HIGH); 
-  Serial.println("The Water Pump is ON!");
-  delay(3000); 
-  digitalWrite(PUMP_PIN, LOW); 
-  Serial.println("The Water Pump is OFF!");
-  delay(3000); 
-}
+// void navodni(){
+//   digitalWrite(PUMP_PIN, HIGH); 
+//   Serial.println("The Water Pump is ON!");
+//   delay(3000); 
+//   digitalWrite(PUMP_PIN, LOW); 
+//   Serial.println("The Water Pump is OFF!");
+//   delay(3000); 
+// }
 
 void moisture(){
   float moisture_percentage;
@@ -90,6 +91,13 @@ void moisture(){
   Serial.print("Moisture Percentage = ");
   Serial.print(moisture_percentage);
   Serial.print("%\n\n");
+
+  if (moisture_percentage < 50) {
+    digitalWrite(pumpPin, HIGH); // Turn on the water pump
+  } else {
+    digitalWrite(pumpPin, LOW); // Turn off the water pump
+  }
+    
   delay(1000);
 }
 
